@@ -1,0 +1,46 @@
+/web/bundles/
+/web/uploads/
+/web/upload/
+/app/bootstrap.php.cache
+/app/cache/*
+/app/config/parameters.yml
+/app/logs/*
+!app/cache/.gitkeep
+!app/logs/.gitkeep
+/app/phpunit.xml
+/build/
+/vendor/
+/bin/
+/composer.phar
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+*.tmp
+
+# Mac
+.DS_Store
+._*
+
+# Editeurs
+_notes/
+**/_notes*/
+dwsync.xml
+*.sublime-project
+*.sublime-workspace
+.idea/
+*.bak
+oracle.sqlite
+
+# NodeJS
+node_modules/
+npm-debug.log
+
+# Doc
+doc/
+
+# Backup entities generated with doctrine:generate:entities command
+*/Entity/*~
+*~
