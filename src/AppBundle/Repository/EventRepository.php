@@ -28,10 +28,11 @@ class EventRepository extends EntityRepository
     {
         $qb = $this->createQueryBuilder('ev');
         // par defaut : entre il y a 1 mois et maintenant
-        $debutDefault = new \DateTime(date("Y-m-d H:i:s", time() - (60 * 60 * 24 * 30)));
-        $finDefault = new \DateTime(date("Y-m-d H:i:s", time()));
+        // $debutDefault = new \DateTime(date("Y-m-d H:i:s", time() - (60 * 60 * 24 * 30)));
+        // $finDefault = new \DateTime(date("Y-m-d H:i:s", time()));
         $qb->setFirstResult($offset)
-            ->setMaxResults($limit);
+            ->setMaxResults($limit)
+            ->addOrderBy("ev.eventDateTime", "DESC");
         
         // filtres
         // if (isset($params["panier"]) && trim($params["panier"]) !== "" && (int)$params["panier"] > 0) {
@@ -48,5 +49,10 @@ class EventRepository extends EntityRepository
         // }
         $paginator = new Paginator($qb, $fetchJoinCollection = true);
         return $paginator;
+    }
+
+    public function eventsParJour($params, $debut, $fin)
+    {
+        $qb = $this->createQueryBuilder('ev');
     }
 }

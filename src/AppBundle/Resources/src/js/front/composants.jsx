@@ -170,6 +170,7 @@ export class RechercheContainer extends React.Component {
     constructor(...args) {
         super(...args);
 
+        this.to = null;
         this.state = {
             store: {},
             infosAjax: {},
@@ -336,6 +337,14 @@ export class RechercheContainer extends React.Component {
 
     }
     componentDidMount() {
-        
+        // lancer le timeout d'autorefresh
+        let self = this;
+        let setTo = function _setTo() {
+                    self.to = setTimeout(() => {
+                        self.callbacks.reloadResultats();
+                        _setTo();
+                    }, 10000);
+                };
+        setTo();
     }
 }
