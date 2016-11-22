@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>{% block title %}Events{% endblock %}</title>
+        {% block stylesheets %}
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.5/css/bootstrap-flex.min.css" media="all" />
+        {% endblock %}
+        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+    </head>
+    <body>
+        {% block body %}{% endblock %}
+        {% block javascripts %}
+        <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+        <script src="{{ path('fos_js_routing_js', { callback: 'fos.Router.setData' }) }}"></script>
+        {% endblock %}
+    </body>
+</html>

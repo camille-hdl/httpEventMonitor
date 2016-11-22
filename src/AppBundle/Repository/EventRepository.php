@@ -3,6 +3,7 @@
 namespace AppBundle\Repository;
 
 use Doctrine\ORM\EntityRepository;
+use Doctrine\ORM\Tools\Pagination\Paginator;
 
 /**
  * EventRepository
@@ -12,4 +13,40 @@ use Doctrine\ORM\EntityRepository;
  */
 class EventRepository extends EntityRepository
 {
+    /*
+    $qb=$this->createQueryBuilder('cf')
+                ->addSelect('r')
+                ->leftJoin('cf.reservations','r')
+                ->where('cf.id = :id_cot_fiche')
+                ->andWhere(':date < r.dateDebutReservation OR :date < r.dateFinReservation ')
+                ->setParameter('id_cot_fiche',$id_cot_fiche)
+                ->setParameter('date',$date)
+                ;
+     */
+    // fonction de recherche principale pour le front
+    public function rechercheFront($params, $offset, $limit)
+    {
+        $qb = $this->createQueryBuilder('ev');
+        // par defaut : entre il y a 1 mois et maintenant
+        $debutDefault = new \DateTime(date("Y-m-d H:i:s", time() - (60 * 60 * 24 * 30)));
+        $finDefault = new \DateTime(date("Y-m-d H:i:s", time()));
+        $qb->setFirstResult($offset)
+            ->setMaxResults($limit);
+        
+        // filtres
+        // if (isset($params["panier"]) && trim($params["panier"]) !== "" && (int)$params["panier"] > 0) {
+        //     $qb->leftJoin('cf.cotPaniers', 'cps');
+        //     $qb->andWhere(':id_cot_panier MEMBER OF cf.cotPaniers');
+        //     $qb->setParameter('id_cot_panier', (int)$params["panier"]);
+        // }
+
+        // // intitule
+        // if (isset($params["intitule"]) && trim($params["intitule"]) !== "") {
+        //     $subIntitule = $qb->expr()->orX($qb->expr()->like('cf.libelle', ':intitule'), $qb->expr()->like('cf.descriptionLongue', ':intitule'));
+        //     $qb->andWhere($subIntitule)
+        //        ->setParameter('intitule', "%" . $params["intitule"] . "%");
+        // }
+        $paginator = new Paginator($qb, $fetchJoinCollection = true);
+        return $paginator;
+    }
 }

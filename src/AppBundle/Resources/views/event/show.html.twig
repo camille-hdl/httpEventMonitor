@@ -1,0 +1,56 @@
+{% extends 'AppBundle::base.html.twig' %}
+
+{% block body %}
+    <h1>Event</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ event.id }}</td>
+            </tr>
+            <tr>
+                <th>Eventdatetime</th>
+                <td>{% if event.eventDateTime %}{{ event.eventDateTime|date('Y-m-d H:i:s') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Eventreceiveddate</th>
+                <td>{% if event.eventReceivedDate %}{{ event.eventReceivedDate|date('Y-m-d H:i:s') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Eventlevel</th>
+                <td>{{ event.eventLevel }}</td>
+            </tr>
+            <tr>
+                <th>Eventorigin</th>
+                <td>{{ event.eventOrigin }}</td>
+            </tr>
+            <tr>
+                <th>Eventapplication</th>
+                <td>{{ event.eventApplication }}</td>
+            </tr>
+            <tr>
+                <th>Eventapplicationversion</th>
+                <td>{{ event.eventApplicationVersion }}</td>
+            </tr>
+            <tr>
+                <th>Eventtype</th>
+                <td>{{ event.eventType }}</td>
+            </tr>
+            <tr>
+                <th>Eventdescription</th>
+                <td>{{ event.eventDescription }}</td>
+            </tr>
+            <tr>
+                <th>Eventdata</th>
+                <td>{{ dump(event.eventData) }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('front_event_index') }}">Back to the list</a>
+        </li>
+    </ul>
+{% endblock %}

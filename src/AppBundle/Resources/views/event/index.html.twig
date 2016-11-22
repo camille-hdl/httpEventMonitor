@@ -1,0 +1,30 @@
+{% extends 'AppBundle::base.html.twig' %}
+
+{% block body %}
+<div id="front-container">
+</div>
+    
+{% endblock %}
+{% block javascripts %}
+    {{parent()}}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.2/lodash.min.js"></script>
+    <script src="{{ asset('bundles/app/js/front.min.js') }}"></script>
+    <script>
+    (function(window, $, Front){
+        if (typeof $ !== "function") {
+            console.warn("Pas jQuery");
+            return;
+        }
+        if (typeof Front !== "function") {
+            console.warn("Pas Front");
+            return;
+        }
+        window.eventFront = new Front({
+            element: "front-container",
+            filtres: {{ filtres|json_encode()|raw }},
+            infosAjax: {{ resultats|json_encode()|raw }}
+        });
+    })(window, window.$, window.Front);
+    </script>
+{% endblock %}

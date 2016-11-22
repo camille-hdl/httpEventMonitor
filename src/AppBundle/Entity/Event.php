@@ -29,6 +29,13 @@ class Event
     private $eventDateTime;
 
     /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="eventReceivedDate", type="datetime")
+     */
+    private $eventReceivedDate;
+
+    /**
      * @var int
      *
      * @ORM\Column(name="eventLevel", type="integer", nullable=true)
@@ -41,6 +48,20 @@ class Event
      * @ORM\Column(name="eventOrigin", type="string", length=255, nullable=true)
      */
     private $eventOrigin;
+
+    /**
+     * @var string
+     *eventApplication
+     * @ORM\Column(name="eventApplication", type="string", length=255, nullable=true)
+     */
+    private $eventApplication;
+
+    /**
+     * @var string
+     *eventApplicationVersion
+     * @ORM\Column(name="eventApplicationVersion", type="string", length=255, nullable=true)
+     */
+    private $eventApplicationVersion;
 
     /**
      * @var string
@@ -72,6 +93,29 @@ class Event
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * Set eventReceivedDate
+     *
+     * @param \DateTime $eventReceivedDate
+     * @return Event
+     */
+    public function setEventReceivedDate($eventReceivedDate)
+    {
+        $this->eventReceivedDate = $eventReceivedDate;
+
+        return $this;
+    }
+
+    /**
+     * Get eventReceivedDate
+     *
+     * @return \DateTime 
+     */
+    public function getEventReceivedDate()
+    {
+        return $this->eventReceivedDate;
     }
 
     /**
@@ -167,6 +211,52 @@ class Event
     }
 
     /**
+     * Set eventApplication
+     *
+     * @param string $eventApplication
+     * @return Event
+     */
+    public function setEventApplication($eventApplication)
+    {
+        $this->eventApplication = $eventApplication;
+
+        return $this;
+    }
+
+    /**
+     * Get eventApplication
+     *
+     * @return string 
+     */
+    public function getEventApplication()
+    {
+        return $this->eventApplication;
+    }
+
+    /**
+     * Set eventApplicationVersion
+     *
+     * @param string $eventApplicationVersion
+     * @return Event
+     */
+    public function setEventApplicationVersion($eventApplicationVersion)
+    {
+        $this->eventApplicationVersion = $eventApplicationVersion;
+
+        return $this;
+    }
+
+    /**
+     * Get eventApplicationVersion
+     *
+     * @return string 
+     */
+    public function getEventApplicationVersion()
+    {
+        return $this->eventApplicationVersion;
+    }
+
+    /**
      * Set eventDescription
      *
      * @param string $eventDescription
@@ -210,5 +300,20 @@ class Event
     public function getEventData()
     {
         return $this->eventData;
+    }
+
+    public function rechercheFrontSerialize()
+    {
+        return array(
+            "id" => $this->id,
+            "application" => $this->eventApplication,
+            "version" => $this->eventApplicationVersion,
+            "dateReceived" => $this->eventReceivedDate->format("Y-m-d H:i:s"),
+            "dateEvent" => $this->eventDateTime->format("Y-m-d H:i:s"),
+            "type" => $this->eventType,
+            "level" => $this->eventLevel,
+            "description" => $this->eventDescription,
+            "origin" => $this->eventOrigin
+        );
     }
 }
